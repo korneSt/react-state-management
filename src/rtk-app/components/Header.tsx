@@ -1,7 +1,9 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {selectDarkMode, setDarkMode } from '../app/store/globalSlice';
-import { getMovies, selectMostLiked } from '../app/store/moviesSlice';
+
+import {selectDarkMode, setDarkMode } from '../store/globalSlice';
+import { getMovies, selectMostLiked } from '../store/moviesSlice';
+
 import './Header.css';
 
 function Header() {

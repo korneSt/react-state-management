@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from '../app/store/index';
+import { RootState } from '../store/index';
 import {
   like,
   dislike,
   Movie,
-} from '../app/store/moviesSlice';
+} from '../store/moviesSlice';
 import logo512 from '../logo192.png';
 
 interface Props {

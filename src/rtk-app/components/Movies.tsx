@@ -1,23 +1,21 @@
 import { bindActionCreators, Dispatch } from '@reduxjs/toolkit';
-import React, { useState, useEffect } from 'react';
-import { useSelector, useDispatch, connect } from 'react-redux';
-import { RootState } from '../app/store';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
+
+import { RootState } from '../store';
 import {
-  selectMovies,
   getMovies,
-} from '../app/store/moviesSlice';
+} from '../store/moviesSlice';
+
 import OneMovie from './Movie';
 
 type TProps = ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps>;
 interface Props extends TProps {}
 
 const Movies: React.FC<Props> = (props)=> {
-  // const movies = useSelector(selectMovies);
-  // const dispatch = useDispatch();
 
   useEffect(() => {
     props.getMovies('');
-   
   }, [])
 
   if (props.movies.isLoading) {
