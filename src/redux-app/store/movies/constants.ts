@@ -1,0 +1,6 @@
+export const GET_MOVIES_STARTED = "GET_MOVIES_STARTED";
+export const GET_MOVIES_SUCCESS = "GET_MOVIES_SUCCESS";
+export const GET_MOVIES_ERROR = "GET_MOVIES_ERROR";
+
+export const LIKE = "LIKE";
+export const DISLIKE = "DISLIKE";
