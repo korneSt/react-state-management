@@ -1,16 +1,16 @@
-import { RootState } from '..';
+import { Dispatch } from 'redux';
+import { api, IMovie } from '../../../types';
+import { RootState } from '../index';
 import * as CONS from './constants';
-import { Movie } from './types';
 
-const api = (endpoint: string) => (`http://api.tvmaze.com/${endpoint}`);
 
-export function getMovies(query: string): (dispatch: any) => Promise<void> {
-  return async (dispatch) => {
+export function getMovies(query: string): (dispatch: Dispatch<MovieActions>, getState: () => RootState) => Promise<void> {
+  return async (dispatch, getState: () => RootState) => {
     dispatch(getMoviesStarted());
-    try {
 
-      const response = await fetch(api(`search/shows?q=${query || 'a'}`));
-      const movies = await response.json() as Movie[];
+    try {
+      const response = await fetch(api(`search/shows?q=${query}`));
+      const movies = await response.json() as IMovie[];
 
       dispatch(getMoviesSuccess(movies));
     } catch (err) {
@@ -25,7 +25,7 @@ function getMoviesStarted() {
   } as const;
 }
 
-function getMoviesSuccess(movies: Movie[]) {
+function getMoviesSuccess(movies: IMovie[]) {
   return {
     type: CONS.GET_MOVIES_SUCCESS,
     movies,
@@ -38,6 +38,7 @@ function getMoviesError(error: string) {
     error,
   } as const;
 }
+
 
 export function like(movieName: string) {
   return {
@@ -53,6 +54,8 @@ export function dislike(movieName: string) {
   } as const;
 }
 
+
+// most liked selector
 export const selectMostLiked = (state: RootState) => {
   const likes = Object.entries(state.movies.likes);
   const top = likes.reduce((max, cur) => (cur[1] > max[1] ? max = cur : max), likes[0]);

@@ -1,8 +1,6 @@
 import { makeAutoObservable, makeObservable, observable, action } from 'mobx';
+import { IGlobal } from '../../types';
 
-interface IGlobal {
-  darkMode: boolean
-}
 
 class Global implements IGlobal {
   darkMode = false;

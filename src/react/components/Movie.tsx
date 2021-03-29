@@ -1,23 +1,22 @@
 import React from 'react';
-import { observer } from 'mobx-react';
 import { FaThumbsUp, FaThumbsDown, FaChartLine } from 'react-icons/fa'; 
-
-import { moviesStore } from '../store/movies';
 import { IMovie } from '../../types';
+import { MovieAction } from '../common/interfaces';
+
 interface Props {
   movie: IMovie;
+  likes: number;
+  dispatch: React.Dispatch<MovieAction>;
 }
 
-const OneMovie: React.FC<Props> = ({movie}) => {
-
-  const likes = moviesStore.getmovieLikes(movie.show.name);
+const OneMovie: React.FC<Props> = ({movie, likes, dispatch}) => {
 
   const onLike = () => {
-    moviesStore.like(movie.show.name);
+    dispatch({type: 'LIKE', payload: movie.show.name});
   }
 
   const onDislike = () => {
-    moviesStore.dislike(movie.show.name);
+    dispatch({type: 'DISLIKE', payload: movie.show.name});
   }
 
   return (
@@ -42,6 +41,6 @@ const OneMovie: React.FC<Props> = ({movie}) => {
       </div>
     </div>
   );
-};
+}
 
-export default observer(OneMovie);
+export default OneMovie;

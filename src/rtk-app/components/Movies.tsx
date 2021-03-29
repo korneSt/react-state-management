@@ -9,8 +9,7 @@ import {
 
 import OneMovie from './Movie';
 
-type TProps = ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps>;
-interface Props extends TProps {}
+interface Props extends ReturnType<typeof mapStateToProps>, ReturnType<typeof mapDispatchToProps> {}
 
 const Movies: React.FC<Props> = (props)=> {
 
@@ -20,14 +19,14 @@ const Movies: React.FC<Props> = (props)=> {
 
   if (props.movies.isLoading) {
     return (
-      <div className="text-4xl flex justify-center align-middle h-screen">
-        <p className="">Loading...</p>
+      <div className="h-full w-full flex justify-center">
+        <p className="my-32 loader"></p>
       </div>
     );
   }
 
   return (
-    <div>
+    <div className="overflow-y-auto h-full">
       {props.movies.data.map((el) => (
         <OneMovie key={el.show.id} movie={el} />
       ))}

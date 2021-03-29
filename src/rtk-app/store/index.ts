@@ -9,7 +9,11 @@ export const store = configureStore({
   },
 });
 
+// exporint type for the whole state
 export type RootState = ReturnType<typeof store.getState>;
+
+export type AppDispatch = typeof store.dispatch;
+
 export type AppThunk<ReturnType = void> = ThunkAction<
   ReturnType,
   RootState,

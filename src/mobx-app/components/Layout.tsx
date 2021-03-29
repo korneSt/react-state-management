@@ -8,10 +8,10 @@ import { globalStore } from '../store/global';
 
 const Layout = observer(() => {
   const darkMode = globalStore.darkMode;
-
+  
   return (
-    <div className={`App ${darkMode ? "dark" : ""}`}>
-      <div className="dark:bg-gray-700 bg-gray-100 h-screen">
+    <div className={`App ${darkMode ? "dark" : ""} `}>
+      <div className="dark:bg-gray-700 bg-gray-50 flex flex-col h-screen">
         <Header globalState={globalStore} />
         <Movies />
       </div>  

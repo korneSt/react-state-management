@@ -1,24 +1,25 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { GlobalContext, useGlobalContext } from '../App';
 import { FaSun, FaMoon } from 'react-icons/fa'; 
 
-import { setDarkMode } from '../store/globalSlice';
-import { getMovies, selectMostLiked } from '../store/moviesSlice';
-import { useAppDispatch, useAppSelector } from '../store/hooks';
+interface Props {
+  onQueryChange: (query: string) => void;
+  mostLiked: string;
+}
 
+const Header: React.FC<Props> = (props) => {
 
-function Header() {
-  const dispatch = useAppDispatch();
-  
-  const mostLiked = useAppSelector(selectMostLiked);
-  const darkMode = useAppSelector(state => state.global.darkMode);
+  const [global, setGlobal] = useGlobalContext();
 
+  const mostLiked = props.mostLiked;
+  const darkMode = global.darkMode;
 
   const onSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(getMovies(e.target.value));
+    props.onQueryChange(e.target.value || 'a');
   }
 
   const onThemeChange = () => {
-    dispatch(setDarkMode());
+    setGlobal({darkMode: !global.darkMode});
   }
 
   return (

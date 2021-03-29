@@ -14,20 +14,29 @@ interface Props extends TProps {}
 
 const Movies: React.FC<Props> = (props)=> {
 
+  // run once
   useEffect(() => {
     props.getMovies('');
   }, [])
 
   if (props.movies.isLoading) {
     return (
-      <div className="text-4xl flex justify-center align-middle h-screen">
-        <p className="">Loading...</p>
+      <div className="h-full w-full flex justify-center">
+        <p className="my-32 loader"></p>
+      </div>
+    );
+  }
+
+  if (props.movies.error) {
+    return (
+      <div className="h-full w-full flex justify-center">
+        <p className="my-32 text-4xl dark:text-gray-100">Error Loading Data</p>
       </div>
     );
   }
 
   return (
-    <div>
+    <div className="overflow-y-auto h-full">
       {props.movies.data.map((el) => (
         <OneMovie key={el.show.id} movie={el} />
       ))}

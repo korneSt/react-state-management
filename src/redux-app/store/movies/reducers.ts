@@ -1,18 +1,9 @@
-import { MoviesState } from "./types";
 import * as CONS from './constants';
 import { MovieActions } from "./actions";
+import { IMovies, initialMovieState } from "../../../types";
 
-const initialState: MoviesState = {
-  movies: {
-    data: [],
-    isLoading: false,
-    error: '',
-  },
-  likes: {},
-  favourites: [],
-};
 
-const moviesReducer = (state = initialState, action: MovieActions): MoviesState => {
+const moviesReducer = (state = initialMovieState, action: MovieActions): IMovies => {
   switch(action.type) {
     case CONS.GET_MOVIES_STARTED:
       return {
@@ -49,7 +40,7 @@ const moviesReducer = (state = initialState, action: MovieActions): MoviesState 
         ...state,
         likes: {
           ...state.likes,
-          [action.movieName]: state.likes[action.movieName] + 1,
+          [action.movieName]: (state.likes[action.movieName] || 0) + 1,
         },
       };
     case CONS.DISLIKE:
@@ -57,7 +48,7 @@ const moviesReducer = (state = initialState, action: MovieActions): MoviesState 
         ...state,
         likes: {
           ...state.likes,
-          [action.movieName]: state.likes[action.movieName] - 1,
+          [action.movieName]: (state.likes[action.movieName] || 0) - 1,
         },
       };
     default:

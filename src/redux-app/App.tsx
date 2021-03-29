@@ -5,8 +5,6 @@ import Layout from './components/Layout';
 
 import { store } from './store/index';
 
-import './App.css';
-
 function App() {
 
   return (

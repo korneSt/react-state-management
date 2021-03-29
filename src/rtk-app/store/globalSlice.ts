@@ -1,26 +1,24 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { RootState } from './index';
+import { initialGlobalState } from '../../types';
 
-interface Global {
-  darkMode: boolean;
-}
 
-const initialState: Global = {
-  darkMode: false,
-};
-
+// creating slice of the state
 export const globalSlice = createSlice({
   name: 'global',
-  initialState,
+  initialState: initialGlobalState,
   reducers: {
-    setDarkMode: state => {
+    setDarkMode: (state) => {
       state.darkMode = !state.darkMode;
     },
   },
 });
 
-export const { setDarkMode } = globalSlice.actions;
-
+// exporting selector for darkMode variable
 export const selectDarkMode = (state: RootState) => state.global.darkMode;
 
+// exporting action to setDarkMode
+export const { setDarkMode } = globalSlice.actions;
+
+// exportign reducer to combine it later with other reducers
 export default globalSlice.reducer;

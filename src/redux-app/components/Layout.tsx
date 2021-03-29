@@ -11,7 +11,7 @@ function Layout() {
 
   return (
     <div className={`App ${darkMode ? "dark" : ""}`}>
-      <div className="dark:bg-gray-700 bg-gray-100">
+      <div className="dark:bg-gray-700 bg-gray-50 flex flex-col h-screen">
         <Header />
         <Movies />
       </div>  

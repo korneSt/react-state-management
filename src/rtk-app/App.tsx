@@ -6,8 +6,6 @@ import Layout from './components/Layout';
 
 import { store } from '../rtk-app/store/index';
 
-import './App.css';
-
 function App() {
 
   return (

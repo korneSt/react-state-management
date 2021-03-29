@@ -2,15 +2,14 @@ import React from 'react';
 
 import Movies from './Movies';
 import Header from './Header';
+import useGlobalStore from '../store/globalStore';
 
-import { selectDarkMode } from '../store/globalSlice';
-import { useAppSelector } from '../store/hooks';
 
 function Layout() {
-  const darkMode = useAppSelector(selectDarkMode);
+  const darkMode = useGlobalStore(state => state.darkMode);
 
   return (
-    <div className={`${darkMode ? "dark" : ""}`}>
+    <div className={`App ${darkMode ? "dark" : ""}`}>
       <div className="dark:bg-gray-700 bg-gray-50 flex flex-col h-screen">
         <Header />
         <Movies />

@@ -1,83 +1,39 @@
-import { makeAutoObservable, makeObservable, observable, action } from 'mobx';
-
-interface IMovie {
-  score: number;
-  show: {
-    id: string;
-    name: string;
-    status: string;
-    rating: {
-      average: number;
-    };
-    image: {
-      medium: string;
-      original: string;
-    };
-    summary: string;
-  };
-}
-
-interface LoadingData {
-  isLoading: boolean;
-  error: string;
-}
-
-interface IMovies {
-  movies: {
-    data: IMovie[];
-  } & LoadingData;
-  likes: {
-    [key: string]: number;
-  };
-}
-
-const initialMovie: IMovie = {
-  score: 0,
-  show: {
-    id: '',
-    name: '',
-    status: '',
-    rating: {
-      average: 0,
-    },
-    image: {
-      medium: '',
-      original: '',
-    },
-    summary: '',
-  },
-}
-
-const api = (endpoint: string) => (`http://api.tvmaze.com/${endpoint}`);
-
+import { makeAutoObservable, makeObservable, observable, action, runInAction } from 'mobx';
+import { IMovie, IMovies, api } from '../../types';
 
 class Movies implements IMovies {
+  // class fields will be annotated as observable
   movies = {
-    data: [initialMovie],
+    data: [] as IMovie[],
     isLoading: false,
     error: '',
   };
-  likes: {
-    [key: string]: number;
-  } = {};
+  likes: IMovies["likes"] = {};
   
   constructor() {
     makeAutoObservable(this);
   }
 
+  // any class member that is function will be annotated with action
   async getMovies(query: string) {
     this.movies.isLoading = true;
+    this.movies.error = '';
     try {
-
       const response = await fetch(api(`search/shows?q=${query || 'a'}`));
       const movies = await response.json() as IMovie[];
-      
-      this.movies.data = movies;
-      this.movies.isLoading = false;
+      runInAction(() => {
+        this.movies.data = movies;
+        this.movies.isLoading = false;
+        
+      })
     } catch (err) {
-      this.movies.error = err;
-      this.movies.isLoading = false;
+      this.onMovieError(err);
     }
+  }
+
+  onMovieError(err: string) {
+    this.movies.error = err;
+    this.movies.isLoading = false;
   }
 
   like(name: string) {
@@ -91,7 +47,7 @@ class Movies implements IMovies {
   getmovieLikes(name: string) {
     return this.likes[name];
   }
-
+  // get will be annotated with computed
   get mostLiked() {
     const likes = Object.entries(this.likes);
     const top = likes.reduce((max, cur) => (cur[1] > max[1] ? max = cur : max), likes[0]);
