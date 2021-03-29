@@ -1,10 +1,9 @@
 import React from 'react';
 import { FaSun, FaMoon } from 'react-icons/fa'; 
+import { debounce } from 'ts-debounce';
 
 import useGlobalStore from '../store/globalStore';
 import useMovieStore, { IMoviesStore } from '../store/movieStore';
-
-import './Header.css';
 
 const mostLikedSelector = (state: IMoviesStore) => {
   const top = Object.entries(state.likes).reduce((max, cur) => (cur[1] > max[1] ? max = cur : max), Object.entries(state.likes)[0]);
@@ -18,9 +17,12 @@ function Header() {
   const mostLiked = useMovieStore(mostLikedSelector);
   const darkMode = useGlobalStore(state => state.darkMode);
 
+  const debounceSearch = debounce((query: string) => {
+    getMovies(query);
+  }, 300);
 
   const onSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    getMovies(e.target.value);
+    debounceSearch(e.target.value);
   }
 
   const onThemeChange = () => {

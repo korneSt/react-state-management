@@ -5,6 +5,7 @@ import { observer } from 'mobx-react';
 
 import { moviesStore } from '../store/movies';
 import { globalStore } from '../store/global';
+import { debounce } from 'ts-debounce';
 
 interface Props {
   globalState: typeof globalStore;
@@ -14,8 +15,12 @@ const Header: React.FC<Props> = ({globalState}) => {
   const mostLiked = moviesStore.mostLiked;
   const darkMode = globalState.darkMode;
 
+  const debounceSearch = debounce((query: string) => {
+    moviesStore.getMovies(query);
+  }, 300);
+  
   const onSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    moviesStore.getMovies(e.target.value);
+    debounceSearch(e.target.value);
   }
 
   const onThemeChange = () => {

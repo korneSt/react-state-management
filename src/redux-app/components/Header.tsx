@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { FaSun, FaMoon } from 'react-icons/fa'; 
+import { debounce } from 'ts-debounce';
 
 import { RootState } from '../store';
 import { setDarkMode } from '../store/global/actions';
@@ -9,13 +10,16 @@ import { getMovies, selectMostLiked } from '../store/movies/actions';
 
 function Header() {
   const dispatch = useDispatch();
-
+  
   const mostLiked = useSelector(selectMostLiked);
   const darkMode = useSelector((state: RootState) => state.global.darkMode);
-
-
+  
+  const debounceSearch = debounce((query: string) => {
+    dispatch(getMovies(query));
+  }, 300);
+  
   const onSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(getMovies(e.target.value));
+    debounceSearch(e.target.value);
   }
 
   const onThemeChange = () => {

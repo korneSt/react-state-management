@@ -1,6 +1,7 @@
 import { bindActionCreators, Dispatch } from '@reduxjs/toolkit';
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
+import { FaSearch, FaRegTimesCircle } from 'react-icons/fa';
 
 import { RootState } from '../store';
 import {
@@ -21,6 +22,28 @@ const Movies: React.FC<Props> = (props)=> {
     return (
       <div className="h-full w-full flex justify-center">
         <p className="my-32 loader"></p>
+      </div>
+    );
+  }
+
+  if (props.movies.error) {
+    return (
+      <div className="h-full w-full">
+        <div className="my-32 flex flex-col justify-center items-center text-gray-400">
+          <FaRegTimesCircle className="text-6xl"/>
+          <p className="text-2xl">Error</p>
+        </div>
+    </div>
+    );
+  }
+
+  if (!props.movies.data.length) {
+    return (
+      <div className="h-full w-full">
+        <div className="my-32 flex flex-col justify-center items-center text-gray-400">
+          <FaSearch className="text-6xl"/>
+          <p className="text-2xl">Search shows</p>
+        </div>
       </div>
     );
   }

@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { GlobalContext, useGlobalContext } from '../App';
 import { FaSun, FaMoon } from 'react-icons/fa'; 
+import { debounce } from 'ts-debounce';
 
 interface Props {
   onQueryChange: (query: string) => void;
@@ -14,8 +15,12 @@ const Header: React.FC<Props> = (props) => {
   const mostLiked = props.mostLiked;
   const darkMode = global.darkMode;
 
+  const debounceSearch = debounce((query: string) => {
+    props.onQueryChange(query);
+  }, 300);
+
   const onSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    props.onQueryChange(e.target.value || 'a');
+    debounceSearch(e.target.value);
   }
 
   const onThemeChange = () => {
