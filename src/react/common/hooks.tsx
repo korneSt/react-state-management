@@ -1,16 +1,13 @@
-import { IMovie, IMovies, MovieAction } from './interfaces';
+import { MovieAction } from './interfaces';
+import { useReducer, useState } from 'react';
+import { api, IGlobal, IMovies, initialMovieState } from '../../types';
 
-export const initialState: IMovies = {
-  movies: {
-    data: [],
-    isLoading: false,
-    error: '',
-  },
-  likes: {},
-  favourites: [],
-};
 
-export const moviesReducer = (state: IMovies, action: MovieAction): IMovies => {
+// custom hooks
+export const useMoviesReducer = () => useReducer(moviesReducer, initialMovieState);
+
+// movies reducer
+const moviesReducer = (state: IMovies, action: MovieAction): IMovies => {
   switch (action.type) {
     case 'SET_MOVIES_STARTED':
       return {
@@ -59,4 +56,22 @@ export const moviesReducer = (state: IMovies, action: MovieAction): IMovies => {
      return state;
   }
 }
+
+// utility function
+export const fetchMovies = async (dispatch: React.Dispatch<MovieAction>, query: string) => {
+  dispatch({type: 'SET_MOVIES_STARTED'});
+  try {
+    const response = await fetch(api(`search/shows?q=${query}`));
+    const json = await response.json();
+    dispatch({type: 'SET_MOVIES_SUCCESS', payload: json});
+  } catch (err) {
+    dispatch({type: 'SET_MOVIES_ERROR', payload: err});
+  }
+}
+
+// selector
+export const selectMostLiked = (likes: Record<string, number>) => {
+  const top = Object.entries(likes).reduce((max, cur) => (cur[1] > max[1] ? max = cur : max), Object.entries(likes)[0]);
+  return top ? top[0] : "-";
+};
 

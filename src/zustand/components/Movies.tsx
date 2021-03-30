@@ -10,7 +10,7 @@ const Movies = ()=> {
   const movies = useMovieStore(state => state.movies);
 
   useEffect(() => {
-    getMovies('');
+    getMovies('dark');
   }, []);
 
   

@@ -43,4 +43,4 @@ const OneMovie: React.FC<Props> = ({movie, likes, dispatch}) => {
   );
 }
 
-export default OneMovie;
+export default React.memo(OneMovie);

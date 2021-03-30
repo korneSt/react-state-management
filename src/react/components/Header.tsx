@@ -1,11 +1,13 @@
 import React, { useContext } from 'react';
-import { GlobalContext, useGlobalContext } from '../App';
 import { FaSun, FaMoon } from 'react-icons/fa'; 
 import { debounce } from 'ts-debounce';
+import { useGlobalContext } from '../App';
+import { fetchMovies, selectMostLiked, useMoviesReducer } from '../common/hooks';
+import { MovieAction } from '../common/interfaces';
 
 interface Props {
-  onQueryChange: (query: string) => void;
   mostLiked: string;
+  dispatch: React.Dispatch<MovieAction>;
 }
 
 const Header: React.FC<Props> = (props) => {
@@ -16,7 +18,7 @@ const Header: React.FC<Props> = (props) => {
   const darkMode = global.darkMode;
 
   const debounceSearch = debounce((query: string) => {
-    props.onQueryChange(query);
+    fetchMovies(props.dispatch, query);
   }, 300);
 
   const onSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -42,4 +44,4 @@ const Header: React.FC<Props> = (props) => {
   );
 }
 
-export default Header;
+export default React.memo(Header);

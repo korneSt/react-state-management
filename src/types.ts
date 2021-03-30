@@ -74,8 +74,8 @@ export const initialMovie: IMovie = {
 
 let counter = 0;
 export const api = (endpoint: string) => {
-  if (++counter % 4 === 0) {
-    return 'err';
-  }
+  // if (++counter % 4 === 0) {
+  //   return 'err';
+  // }
   return `http://api.tvmaze.com/${endpoint}`;
 }

@@ -1,24 +1,28 @@
 import React, { createContext, useState, useContext } from 'react';
+import { IGlobal } from '../types';
 import Layout from './components/Layout';
 
-import { Global } from './common/interfaces';
-import './App.css';
-
-
-// custom hooks
-export const useGlobalContext = () => useContext(GlobalContext)!;
-const useDarkMode = (initial: Global) => useState<Global>(initial);
 
 
 // create context to manage global state
-export const GlobalContext = createContext<ReturnType<typeof useDarkMode> | null>(null);
+const useDarkMode = (initial: IGlobal) => useState<IGlobal>(initial);
+const GlobalContext = createContext<ReturnType<typeof useDarkMode> | null>(null);
+export const useGlobalContext = () => useContext(GlobalContext)!;
+
+const GlobalContextProvider: React.FC = (props) => {
+  return (
+    <GlobalContext.Provider value={useDarkMode({darkMode: false})}>
+     {props.children}
+    </GlobalContext.Provider>
+  );
+}
 
 function App() {
 
   return (
-    <GlobalContext.Provider value={useDarkMode({darkMode: false})}>
+    <GlobalContextProvider>
       <Layout />
-    </GlobalContext.Provider>
+    </GlobalContextProvider>
   );
 }
 

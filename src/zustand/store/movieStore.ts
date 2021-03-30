@@ -1,48 +1,13 @@
-import create from "zustand";
+import create, { State } from "zustand";
 import { devtools } from 'zustand/middleware';
-
-export interface IMovie {
-  score: number;
-  show: {
-    id: string;
-    name: string;
-    status: string;
-    rating: {
-      average: number;
-    };
-    image: {
-      medium: string;
-      original: string;
-    };
-    summary: string;
-  };
-}
+import { api, IMovies } from "../../types";
 
 
-export interface ILoadingData {
-  isLoading: boolean;
-  error: string;
-}
-
-export type IMovies = {
-  movies: {
-    data: IMovie[];
-  } & ILoadingData;
-  likes: {
-    [key: string]: number;
-  };
-  favourites: IMovie[];
-}
-
-export type IMoviesActions = {
+export interface IMoviesStore extends IMovies, State {
   like: (name: string) => void;
   dislike: (name: string) => void;
   getMovies: (query: string) => void;
 }
-
-export type IMoviesStore = IMovies & IMoviesActions;
-
-const api = (endpoint: string) => (`http://api.tvmaze.com/${endpoint}`);
 
 
 const useMovieStore = create<IMoviesStore>(devtools((set, get) => ({
@@ -52,7 +17,6 @@ const useMovieStore = create<IMoviesStore>(devtools((set, get) => ({
     error: '',
   },
   likes: {},
-  favourites: [],
   like: (name: string) => set(state => ({
     likes: {
       ...state.likes,
@@ -74,7 +38,7 @@ const useMovieStore = create<IMoviesStore>(devtools((set, get) => ({
       }
     }));
     try {
-      const response = await fetch(api(`search/shows?q=${query || 'a'}`));
+      const response = await fetch(api(`search/shows?q=${query}`));
       const result = await response.json();
       set(state => ({
         movies: {
