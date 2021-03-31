@@ -1,14 +1,14 @@
 import create, { State } from "zustand";
 
-interface IGlobalStore extends State {
+interface IGeneralStore extends State {
   darkMode: boolean;
-  setDarkMode: () => void,
+  setDarkMode: () => void;
 }
 
 
-const useGlobalStore = create<IGlobalStore>((set) => ({
+const useGeneralStore = create<IGeneralStore>((set) => ({
   darkMode: false,
   setDarkMode: () => set((state) => ({darkMode: !state.darkMode})),
 }));
 
-export default useGlobalStore;
+export default useGeneralStore;

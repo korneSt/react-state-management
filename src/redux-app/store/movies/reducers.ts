@@ -10,7 +10,6 @@ const moviesReducer = (state = initialMovieState, action: MovieActions): IMovies
         ...state,
         movies: {
           ...state.movies,
-          data: [],
           isLoading: true,
           error: '',
         },
@@ -22,7 +21,6 @@ const moviesReducer = (state = initialMovieState, action: MovieActions): IMovies
           ...state.movies,
           data: action.movies,
           isLoading: false,
-          error: '',
         },
       };
     case CONS.GET_MOVIES_ERROR:

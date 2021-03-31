@@ -4,16 +4,16 @@ import { FaSun, FaMoon } from 'react-icons/fa';
 import { observer } from 'mobx-react';
 
 import { moviesStore } from '../store/movies';
-import { globalStore } from '../store/global';
+import { generalStore } from '../store/general';
 import { debounce } from 'ts-debounce';
 
 interface Props {
-  globalState: typeof globalStore;
+  generalState: typeof generalStore;
 }
 
-const Header: React.FC<Props> = ({globalState}) => {
+const Header: React.FC<Props> = ({generalState}) => {
   const mostLiked = moviesStore.mostLiked;
-  const darkMode = globalState.darkMode;
+  const darkMode = generalState.darkMode;
 
   const debounceSearch = debounce((query: string) => {
     moviesStore.getMovies(query);
@@ -24,7 +24,7 @@ const Header: React.FC<Props> = ({globalState}) => {
   }
 
   const onThemeChange = () => {
-    globalState.setDarkMode();
+    generalState.setDarkMode();
   }
 
   return (

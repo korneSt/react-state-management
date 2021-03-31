@@ -4,7 +4,7 @@ import { FaSun, FaMoon } from 'react-icons/fa';
 import { debounce } from 'ts-debounce';
 
 import { RootState } from '../store';
-import { setDarkMode } from '../store/global/actions';
+import { setDarkMode } from '../store/general/actions';
 import { getMovies, selectMostLiked } from '../store/movies/actions';
 
 
@@ -12,12 +12,12 @@ function Header() {
   const dispatch = useDispatch();
   
   const mostLiked = useSelector(selectMostLiked);
-  const darkMode = useSelector((state: RootState) => state.global.darkMode);
+  const darkMode = useSelector((state: RootState) => state.general.darkMode);
   
   const debounceSearch = debounce((query: string) => {
     dispatch(getMovies(query));
   }, 300);
-  
+
   const onSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     debounceSearch(e.target.value);
   }

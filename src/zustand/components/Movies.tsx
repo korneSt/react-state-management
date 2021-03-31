@@ -1,13 +1,13 @@
-import React, { useEffect } from 'react';
-import useMovieStore from '../store/movieStore';
+import React, { useCallback, useEffect } from 'react';
+import useMovieStore, { IMoviesStore } from '../store/movieStore';
 import { FaSearch, FaRegTimesCircle } from 'react-icons/fa';
 
 import OneMovie from './Movie';
 
 
 const Movies = ()=> {
-  const getMovies = useMovieStore(state => state.getMovies);
-  const movies = useMovieStore(state => state.movies);
+  const getMovies = useMovieStore((state: IMoviesStore) => state.getMovies);
+  const movies = useMovieStore((state: IMoviesStore) => state.movies);
 
   useEffect(() => {
     getMovies('dark');
@@ -54,4 +54,4 @@ const Movies = ()=> {
 }
 
 
-export default Movies;
+export default React.memo(Movies);

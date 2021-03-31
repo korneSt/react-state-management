@@ -1,6 +1,6 @@
 import { MovieAction } from './interfaces';
-import { useReducer, useState } from 'react';
-import { api, IGlobal, IMovies, initialMovieState } from '../../types';
+import { useReducer } from 'react';
+import { api, IMovies, initialMovieState } from '../../types';
 
 
 // custom hooks

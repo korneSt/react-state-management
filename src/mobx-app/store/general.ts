@@ -1,8 +1,8 @@
 import { makeAutoObservable, makeObservable, observable, action } from 'mobx';
-import { IGlobal } from '../../types';
+import { IGeneral } from '../../types';
 
 
-class Global implements IGlobal {
+class General implements IGeneral {
   darkMode = false;
 
   constructor() {
@@ -18,5 +18,4 @@ class Global implements IGlobal {
   }
 }
 
-
-export const globalStore = new Global();
+export const generalStore = new General();

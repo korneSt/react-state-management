@@ -4,19 +4,19 @@ import { observer } from 'mobx-react';
 import Movies from './Movies';
 import Header from './Header';
 
-import { globalStore } from '../store/global';
+import { generalStore } from '../store/general';
 
-const Layout = observer(() => {
-  const darkMode = globalStore.darkMode;
-  
+const Layout = () => {
+  const darkMode = generalStore.darkMode;
+
   return (
     <div className={`App ${darkMode ? "dark" : ""} `}>
       <div className="dark:bg-gray-700 bg-gray-50 flex flex-col h-screen">
-        <Header globalState={globalStore} />
+        <Header generalState={generalStore} />
         <Movies />
       </div>  
     </div>
   );
-})
+}
 
-export default Layout;
+export default observer(Layout);

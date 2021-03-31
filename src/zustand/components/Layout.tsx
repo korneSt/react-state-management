@@ -2,11 +2,11 @@ import React from 'react';
 
 import Movies from './Movies';
 import Header from './Header';
-import useGlobalStore from '../store/globalStore';
+import useGeneralStore from '../store/generalStore';
 
 
 function Layout() {
-  const darkMode = useGlobalStore(state => state.darkMode);
+  const darkMode = useGeneralStore(state => state.darkMode);
 
   return (
     <div className={`App ${darkMode ? "dark" : ""}`}>

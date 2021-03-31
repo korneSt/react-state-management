@@ -1,9 +1,9 @@
-import { IGlobal, initialGlobalState } from "../../../types";
-import { GlobalActions } from "./actions";
+import { IGeneral, initialGeneralState } from "../../../types";
+import { GeneralActions } from "./actions";
 import * as CONS from './constants';
 
 
-const globalReducer = (state = initialGlobalState, action: GlobalActions): IGlobal => {
+const generalReducer = (state = initialGeneralState, action: GeneralActions): IGeneral => {
   switch(action.type) {
     case CONS.SET_DARK_MODE:
       return {
@@ -16,4 +16,4 @@ const globalReducer = (state = initialGlobalState, action: GlobalActions): IGlob
   }
 }
 
-export default globalReducer;
+export default generalReducer;

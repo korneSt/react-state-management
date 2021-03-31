@@ -12,20 +12,16 @@ export const getMovies = createAsyncThunk(
   }
 )
 
-const changeCount = (prevCount: number, change: number) => {
-  return prevCount + change;
-}
-
 // creating slice of the state
 export const moviesSlice = createSlice({
   name: 'movies',
   initialState: initialMovieState,
   reducers: {
     like: (state, action: PayloadAction<string>) => {
-      state.likes[action.payload] = changeCount(state.likes[action.payload] || 0, 1);
+      state.likes[action.payload] = (state.likes[action.payload] || 0) + 1;
     },
     dislike: (state, action: PayloadAction<string>) => {
-      state.likes[action.payload] = changeCount(state.likes[action.payload] || 0, -1);
+      state.likes[action.payload] = (state.likes[action.payload] || 0) - 1;
     },
   },
   extraReducers: (builder) => {
@@ -44,8 +40,10 @@ export const moviesSlice = createSlice({
   },
 });
 
+// export action creators
 export const { like, dislike } = moviesSlice.actions;
 
+// export selectors
 export const selectMovies = (state: RootState) => state.movies.movies;
 export const selectMostLiked = (state: RootState) => {
   const likes = Object.entries(state.movies.likes); //returns [[key, val], [key, val]]

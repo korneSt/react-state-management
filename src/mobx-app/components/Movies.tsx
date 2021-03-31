@@ -9,14 +9,11 @@ import { moviesStore } from '../store/movies';
 const Movies = () => {
 
   useEffect(() => {
-    // moviesStore.getMovies('');
-    const disposer = autorun(() => moviesStore.getMovies(''));
-
+    const disposer = autorun(() => moviesStore.getMovies('dark'));
     return () => {
       disposer();
     };
   }, [])
-
 
 
   if (moviesStore.movies.isLoading) {

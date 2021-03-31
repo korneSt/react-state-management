@@ -3,7 +3,7 @@ import React from 'react';
 import Movies from './Movies';
 import Header from './Header';
 
-import { selectDarkMode } from '../store/globalSlice';
+import { selectDarkMode } from '../store/generalSlice';
 import { useAppSelector } from '../store/hooks';
 
 function Layout() {

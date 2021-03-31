@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { FaThumbsUp, FaThumbsDown, FaChartLine } from 'react-icons/fa'; 
 import shallow from 'zustand/shallow';
 
@@ -18,7 +18,7 @@ const setLikesSelector = (state: IMoviesStore) => ({
 const OneMovie: React.FC<Props> = ({movie}) => {
 
   const { like, dislike } = useMovieStore(setLikesSelector, shallow);
-  const likes = useMovieStore(state => state.likes[movie.show.name]);
+  const likes = useMovieStore(useCallback(state => state.likes[movie.show.name], []));
 
   const onLike = () => {
     like(movie.show.name);
@@ -52,4 +52,4 @@ const OneMovie: React.FC<Props> = ({movie}) => {
   );
 }
 
-export default OneMovie;
+export default React.memo(OneMovie);

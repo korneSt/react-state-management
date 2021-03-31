@@ -6,4 +6,4 @@ export function setDarkMode() {
   } as const;
 }
 
-export type GlobalActions = ReturnType<typeof setDarkMode>;
+export type GeneralActions = ReturnType<typeof setDarkMode>;

@@ -7,7 +7,7 @@ import Header from './Header';
 import { RootState } from '../store';
 
 function Layout() {
-  const darkMode = useSelector((state: RootState) => state.global.darkMode);
+  const darkMode = useSelector((state: RootState) => state.general.darkMode);
 
   return (
     <div className={`App ${darkMode ? "dark" : ""}`}>

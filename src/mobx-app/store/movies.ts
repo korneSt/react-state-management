@@ -19,7 +19,7 @@ class Movies implements IMovies {
     this.movies.isLoading = true;
     this.movies.error = '';
     try {
-      const response = await fetch(api(`search/shows?q=${query || 'a'}`));
+      const response = await fetch(api(`search/shows?q=${query}`));
       const movies = await response.json() as IMovie[];
       runInAction(() => {
         this.movies.data = movies;

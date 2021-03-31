@@ -2,7 +2,7 @@ import React from 'react';
 import { FaSun, FaMoon } from 'react-icons/fa'; 
 import { debounce } from 'ts-debounce';
 
-import useGlobalStore from '../store/globalStore';
+import useGeneralStore from '../store/generalStore';
 import useMovieStore, { IMoviesStore } from '../store/movieStore';
 
 const mostLikedSelector = (state: IMoviesStore) => {
@@ -12,10 +12,10 @@ const mostLikedSelector = (state: IMoviesStore) => {
 
 function Header() {
   const getMovies = useMovieStore(state => state.getMovies);
-  const setDarkMode = useGlobalStore(state => state.setDarkMode);
+  const setDarkMode = useGeneralStore(state => state.setDarkMode);
 
   const mostLiked = useMovieStore(mostLikedSelector);
-  const darkMode = useGlobalStore(state => state.darkMode);
+  const darkMode = useGeneralStore(state => state.darkMode);
 
   const debounceSearch = debounce((query: string) => {
     getMovies(query);

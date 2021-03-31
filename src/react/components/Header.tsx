@@ -1,8 +1,8 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { FaSun, FaMoon } from 'react-icons/fa'; 
 import { debounce } from 'ts-debounce';
-import { useGlobalContext } from '../App';
-import { fetchMovies, selectMostLiked, useMoviesReducer } from '../common/hooks';
+import { useGeneralContext } from '../App';
+import { fetchMovies } from '../common/hooks';
 import { MovieAction } from '../common/interfaces';
 
 interface Props {
@@ -12,10 +12,10 @@ interface Props {
 
 const Header: React.FC<Props> = (props) => {
 
-  const [global, setGlobal] = useGlobalContext();
+  const [general, setGeneral] = useGeneralContext();
 
   const mostLiked = props.mostLiked;
-  const darkMode = global.darkMode;
+  const darkMode = general.darkMode;
 
   const debounceSearch = debounce((query: string) => {
     fetchMovies(props.dispatch, query);
@@ -26,7 +26,7 @@ const Header: React.FC<Props> = (props) => {
   }
 
   const onThemeChange = () => {
-    setGlobal({darkMode: !global.darkMode});
+    setGeneral({darkMode: !general.darkMode});
   }
 
   return (

@@ -1,28 +1,28 @@
 import React, { createContext, useState, useContext } from 'react';
-import { IGlobal } from '../types';
+import { IGeneral } from '../types';
 import Layout from './components/Layout';
 
 
 
-// create context to manage global state
-const useDarkMode = (initial: IGlobal) => useState<IGlobal>(initial);
-const GlobalContext = createContext<ReturnType<typeof useDarkMode> | null>(null);
-export const useGlobalContext = () => useContext(GlobalContext)!;
+// create context to manage general state
+const useDarkMode = (initial: IGeneral) => useState<IGeneral>(initial);
+const GeneralContext = createContext<ReturnType<typeof useDarkMode> | null>(null);
+export const useGeneralContext = () => useContext(GeneralContext)!;
 
-const GlobalContextProvider: React.FC = (props) => {
+const GeneralContextProvider: React.FC = (props) => {
   return (
-    <GlobalContext.Provider value={useDarkMode({darkMode: false})}>
+    <GeneralContext.Provider value={useDarkMode({darkMode: false})}>
      {props.children}
-    </GlobalContext.Provider>
+    </GeneralContext.Provider>
   );
 }
 
 function App() {
 
   return (
-    <GlobalContextProvider>
+    <GeneralContextProvider>
       <Layout />
-    </GlobalContextProvider>
+    </GeneralContextProvider>
   );
 }
 

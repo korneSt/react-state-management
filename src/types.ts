@@ -1,20 +1,27 @@
 /*
-* Global
+* General
 */
 
-export interface IGlobal {
+export interface IGeneral {
   darkMode: boolean;
 }
-
-export const initialGlobalState: IGlobal = {
-  darkMode: false,
-};
-
 
 /*
 * Movies
 */
 
+export interface IMovies {
+  movies: {
+    data: IMovie[];
+  } & ILoadingData;
+  likes: {
+    [key: string]: number; //key: name, value: number of likes
+  };
+}
+export interface ILoadingData {
+  isLoading: boolean;
+  error: string;
+}
 export interface IMovie {
   score: number;
   show: {
@@ -32,19 +39,12 @@ export interface IMovie {
   };
 }
 
-export interface ILoadingData {
-  isLoading: boolean;
-  error: string;
-}
 
-export interface IMovies {
-  movies: {
-    data: IMovie[];
-  } & ILoadingData;
-  likes: {
-    [key: string]: number; //key: name, value: number of likes
-  };
-}
+export const initialGeneralState: IGeneral = {
+  darkMode: false,
+};
+
+
 
 export const initialMovieState: IMovies = {
   movies: {
